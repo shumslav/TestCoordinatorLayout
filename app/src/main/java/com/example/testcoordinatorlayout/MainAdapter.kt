@@ -43,7 +43,7 @@ class MainAdapter: ListAdapter<Int, MainAdapter.Holder>(diffUtil) {
                 updateMarginsRelative(start = 30, top = 60, end = 30)
             }
             updatePaddingRelative(start = 40, top = 40, bottom = 40)
-            setBackgroundColor(ContextCompat.getColor(p0.context, com.google.android.material.R.color.material_dynamic_primary10))
+            setBackgroundColor(ContextCompat.getColor(p0.context, R.color.black))
             setTextColor(ContextCompat.getColor(p0.context, R.color.white))
 
         })
