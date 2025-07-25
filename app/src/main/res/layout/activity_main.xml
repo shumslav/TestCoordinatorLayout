@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    tools:context=".MainActivity"
+    app:layoutDescription="@xml/motion_layout_scene"
+    app:motionDebug="SHOW_ALL">
 
         <TextView
             android:id="@+id/toolbar"
@@ -21,7 +18,8 @@
             android:text="toolbar"
             android:textColor="@color/white"
             android:paddingVertical="16dp"
-            android:background="@color/design_default_color_primary"/>
+            android:background="@color/design_default_color_primary"
+            android:translationZ="4dp"/>
 
         <TextView
             android:id="@+id/order_info"
@@ -31,17 +29,20 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:background="@color/cardview_dark_background"/>
+            android:background="@color/cardview_dark_background"
+            android:translationZ="3dp"/>
 
         <TextView
             android:id="@+id/stories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="stories"
+            android:visibility="visible"
             android:textColor="@color/white"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:background="@color/cardview_shadow_start_color"/>
+            android:background="@color/cardview_shadow_start_color"
+            android:translationZ="1dp"/>
 
         <TextView
             android:id="@+id/additional_info"
@@ -51,7 +52,8 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:background="@color/design_default_color_secondary"/>
+            android:background="@color/design_default_color_secondary"
+            android:translationZ="2dp"/>
 
         <TextView
             android:id="@+id/search"
@@ -61,13 +63,14 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:paddingVertical="16dp"
-            android:background="@color/design_default_color_primary_dark"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
+            android:background="@color/design_default_color_primary_dark"
+            android:translationZ="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_catalog"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="0dp"
+        android:visibility="visible"
+        android:nestedScrollingEnabled="false"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

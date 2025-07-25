@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@id/all_expanded_started_set"
+        app:constraintSetEnd="@id/without_stories_set">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:onTouchUp="autoComplete"
+            app:touchRegionId="@id/main" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@id/without_stories_set"
+        app:constraintSetEnd="@id/toolbar_and_search_only_set">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:onTouchUp="autoComplete"
+            app:touchRegionId="@id/main" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@id/toolbar_and_search_only_set"
+        app:constraintSetEnd="@id/catalog_only_set">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:onTouchUp="autoComplete"
+            app:touchRegionId="@id/main" />
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/all_expanded_started_set">
+
+        <Constraint android:id="@id/toolbar">
+
+            <PropertySet
+                android:alpha="1"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/order_info">
+
+            <PropertySet
+                android:alpha="1"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/stories">
+
+            <PropertySet
+                android:alpha="1"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_info"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/additional_info">
+
+            <PropertySet
+                android:alpha="1"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stories"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/search">
+
+            <PropertySet
+                android:alpha="1"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/additional_info"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/rv_catalog">
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/without_stories_set"
+        app:deriveConstraintsFrom="@id/all_expanded_started_set">
+
+        <Constraint android:id="@id/stories">
+
+            <PropertySet android:alpha="0"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/order_info" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/toolbar_and_search_only_set"
+        app:deriveConstraintsFrom="@id/without_stories_set">
+
+        <Constraint android:id="@id/order_info">
+
+            <PropertySet
+                android:alpha="0"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/additional_info"/>
+
+        </Constraint>
+
+        <Constraint android:id="@id/additional_info">
+
+            <PropertySet
+                android:alpha="0"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"/>
+
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/catalog_only_set"
+        app:deriveConstraintsFrom="@id/toolbar_and_search_only_set">
+
+        <Constraint android:id="@id/toolbar">
+
+            <PropertySet android:alpha="0"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/search"/>
+        </Constraint>
+
+
+        <Constraint android:id="@id/search">
+
+            <PropertySet android:alpha="0"
+                app:visibilityMode="ignore"/>
+
+            <Layout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="parent"/>
+
+        </Constraint>
+
+    </ConstraintSet>
+
+</MotionScene>
