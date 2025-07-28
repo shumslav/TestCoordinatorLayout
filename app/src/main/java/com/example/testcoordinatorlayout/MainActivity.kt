@@ -48,18 +48,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() = with(binding) {
-//        rvCatalog.setOnTouchListener { v, event -> reduceMotionEvent(event) }
+        rvCatalog.setOnTouchListener { v, event -> reduceMotionEvent(event) }
     }
 
     private fun reduceMotionEvent(event: MotionEvent?): Boolean = binding.run {
         val isCanScrollVerticalUp = rvCatalog.canScrollVertically(-1)
         val isLastState = main.currentState == R.id.catalog_only_set
+        val isToolbarState = main.currentState == R.id.toolbar_and_search_only_set
+
         return when {
-            isCanScrollVerticalUp -> false
+            isCanScrollVerticalUp && isLastState -> {
+                main.onTouchEvent(event)
+                false
+            }
+
             !isLastState -> {
                 main.onTouchEvent(event)
-                true
+                false
             }
+
             else -> false
         }
     }
