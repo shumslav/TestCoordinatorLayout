@@ -3,35 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
+        android:id="@+id/without_stories_transition"
         app:constraintSetStart="@id/all_expanded_started_set"
         app:constraintSetEnd="@id/without_stories_set">
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:onTouchUp="autoComplete"
-            app:touchRegionId="@id/main" />
+            app:onTouchUp="stop"
+            app:dragThreshold="10"
+            app:touchAnchorSide="top"
+            app:touchAnchorId="@id/rv_catalog"/>
 
     </Transition>
 
     <Transition
+        android:id="@+id/toolbar_and_search_only_transition"
         app:constraintSetStart="@id/without_stories_set"
         app:constraintSetEnd="@id/toolbar_and_search_only_set">
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:onTouchUp="autoComplete"
-            app:touchRegionId="@id/main" />
+            app:onTouchUp="stop"
+            app:dragThreshold="10"
+            app:touchAnchorSide="top"
+            app:touchAnchorId="@id/rv_catalog"/>
 
     </Transition>
 
     <Transition
+        android:id="@+id/catalog_only_transition"
         app:constraintSetStart="@id/toolbar_and_search_only_set"
         app:constraintSetEnd="@id/catalog_only_set">
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:onTouchUp="autoComplete"
-            app:touchRegionId="@id/main" />
+            app:onTouchUp="stop"
+            app:dragThreshold="10"
+            app:touchAnchorSide="top"
+            app:touchAnchorId="@id/rv_catalog"/>
 
     </Transition>
 

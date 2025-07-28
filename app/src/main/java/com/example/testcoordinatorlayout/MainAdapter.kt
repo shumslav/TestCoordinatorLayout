@@ -3,6 +3,7 @@ package com.example.testcoordinatorlayout
 import android.graphics.Color
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import androidx.core.view.updateMarginsRelative
@@ -13,12 +14,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class MainAdapter: ListAdapter<Int, MainAdapter.Holder>(diffUtil) {
+class MainAdapter(
+    private val onClick: (Int) -> Unit
+): ListAdapter<Int, MainAdapter.Holder>(diffUtil) {
 
     inner class Holder(private val view: TextView): RecyclerView.ViewHolder(view) {
 
         fun bind(value: Int) {
             view.text = "Значение = $value"
+            view.setOnClickListener {
+                onClick(value)
+            }
         }
     }
 
