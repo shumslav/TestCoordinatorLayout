@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter by lazy {
         MainAdapter {
-            binding.main.transitionToState(R.id.catalog_only_set)
+//            binding.main.transitionToState(R.id.catalog_only_set)
         }
     }
 
@@ -44,25 +44,27 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG", "all_expanded_started_set = ${R.id.all_expanded_started_set}")
         Log.d("TAG", "without_stories_set = ${R.id.without_stories_set}")
         Log.d("TAG", "catalog_only_set = ${R.id.catalog_only_set}")
-        Log.d("TAG", "toolbar_and_search_only_set = ${R.id.toolbar_and_search_only_set}")
     }
 
     private fun setupRecyclerView() = with(binding) {
-        rvCatalog.setOnTouchListener { v, event -> reduceMotionEvent(event) }
+        rvCatalog.setOnTouchListener { v, event ->
+            main.onTouchEvent(event)
+            false
+//            reduceMotionEvent(event)
+        }
     }
 
     private fun reduceMotionEvent(event: MotionEvent?): Boolean = binding.run {
         val isCanScrollVerticalUp = rvCatalog.canScrollVertically(-1)
         val isLastState = main.currentState == R.id.catalog_only_set
-        val isToolbarState = main.currentState == R.id.toolbar_and_search_only_set
 
         return when {
-            isCanScrollVerticalUp && isLastState -> {
+            !isLastState -> {
                 main.onTouchEvent(event)
                 false
             }
 
-            !isLastState -> {
+            isCanScrollVerticalUp -> {
                 main.onTouchEvent(event)
                 false
             }
@@ -74,22 +76,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupMotionLayout() = with(binding) {
         main.addTransitionListener(object : MotionLayout.TransitionListener {
-            var lastState = R.id.all_expanded_started_set
 
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
                 Log.d("TAG", "onTransitionStarted")
                 Log.d("TAG", "p1 = $p1  p2 = $p2")
-                if (p1 == R.id.all_expanded_started_set && p2 == R.id.without_stories_set) {
-                    if (stories.visibility == View.GONE) {
-                        main.transitionToState(R.id.without_stories_set)
-                    }
-                }
-
-                if (p1 == R.id.without_stories_set && p2 == R.id.all_expanded_started_set) {
-                    if (stories.visibility == View.GONE) {
-                        main.transitionToState(R.id.all_expanded_started_set)
-                    }
-                }
             }
 
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
@@ -100,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 Log.d("TAG", "onTransitionCompleted")
                 Log.d("TAG", "p1 = $p1")
-                Log.d("TAG", "current state = ${main.currentState}")
+//                Log.d("TAG", "current state = ${main.currentState}")
 //                val nextTransition = when (p1) {
 //                    R.id.all_expanded_started_set -> R.id.without_stories_transition
 //
