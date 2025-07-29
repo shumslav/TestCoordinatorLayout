@@ -38,18 +38,18 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
-        binding.main.setOnTouchListener { view, event ->
-            binding.rvCatalog.onTouchEvent(event)
-        }
+//        binding.main.setOnTouchListener { view, event ->
+//            binding.rvCatalog.onTouchEvent(event)
+//        }
     }
 
     private fun setupRecyclerView() = with(binding) {
-        rvCatalog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                Log.d("TAG", "onScrolled: $dy")
-                onChangeVerticalScroll(dy)
-            }
-        })
+//        rvCatalog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                Log.d("TAG", "onScrolled: $dy")
+//                onChangeVerticalScroll(dy)
+//            }
+//        })
     }
 
     private fun onChangeVerticalScroll(dy: Int) {
