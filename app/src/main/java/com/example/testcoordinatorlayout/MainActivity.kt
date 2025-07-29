@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter by lazy {
         MainAdapter {
-//            binding.main.transitionToState(R.id.catalog_only_set)
+            binding.main.progress = 0.5f
         }
     }
 
@@ -38,20 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         setupMotionLayout()
 
-        setupRecyclerView()
-
         Log.d("TAG", "Ids")
         Log.d("TAG", "all_expanded_started_set = ${R.id.all_expanded_started_set}")
         Log.d("TAG", "without_stories_set = ${R.id.without_stories_set}")
         Log.d("TAG", "catalog_only_set = ${R.id.catalog_only_set}")
-    }
-
-    private fun setupRecyclerView() = with(binding) {
-        rvCatalog.setOnTouchListener { v, event ->
-            main.onTouchEvent(event)
-            false
-//            reduceMotionEvent(event)
-        }
     }
 
     private fun reduceMotionEvent(event: MotionEvent?): Boolean = binding.run {

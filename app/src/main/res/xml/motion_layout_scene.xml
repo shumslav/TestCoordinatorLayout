@@ -15,7 +15,17 @@
 
         <KeyFrameSet>
 
+            <KeyPosition
+                app:framePosition="50"
+                app:motionTarget="@id/stories"
+                app:percentX="1"
+                app:percentY="1"/>
 
+            <KeyPosition
+                app:framePosition="50"
+                app:motionTarget="@id/toolbar"
+                app:percentX="0"
+                app:percentY="0"/>
 
         </KeyFrameSet>
 
