@@ -21,7 +21,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val adapter by lazy {
-        MainAdapter {
+        MainAdapter {}
+    }
+
+    private val categoriesAdapter by lazy {
+        CategoriesAdapter {
+            binding.rvCatalog.smoothScrollToPosition(it)
+            binding.content.setExpanded(false, true)
         }
     }
 
@@ -34,6 +40,12 @@ class MainActivity : AppCompatActivity() {
         binding.rvCatalog.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        binding.categories.adapter = categoriesAdapter
+        binding.categories.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+
+        categoriesAdapter.submitList((0..100).toList())
         adapter.submitList((0..100).toList())
 
         setupRecyclerView()
@@ -44,55 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() = with(binding) {
-//        rvCatalog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                Log.d("TAG", "onScrolled: $dy")
-//                onChangeVerticalScroll(dy)
-//            }
-//        })
-    }
-
-    private fun onChangeVerticalScroll(dy: Int) {
-        if (dy > 0)
-            onScrollDown(dy)
-        else
-            onScrollUp(abs(dy))
-
-    }
-
-    private fun onScrollUp(dy: Int) = with(binding) {
-        var lastScroll = dy
-        if (stories.translationY != 0f) {
-            val distance = abs(stories.translationY.toInt())
-            val canDistance = min(lastScroll, distance)
-//            stories.translationY += canDistance
-//            search.translationY += canDistance
-//            rvCatalog.translationY += canDistance
-            lastScroll -= canDistance
-        }
-    }
-
-    private fun onScrollDown(dy: Int) = with(binding) {
-        var lastScroll = dy
-        var isWasStoriesScrolled: Boolean
-        if (stories.y != toolbar.y) {
-            val distance = (stories.y - toolbar.y).toInt()
-            val canDistance = min(lastScroll, distance)
-            stories.translationY -= canDistance
-            search.translationY -= canDistance
-            rvCatalog.translationY -= canDistance
-            lastScroll -= canDistance
-            isWasStoriesScrolled = canDistance == distance
-        } else {
-            isWasStoriesScrolled = true
-        }
-        val searchDistance = search.y + search.height
-        if (searchDistance != 0f && isWasStoriesScrolled) {
-            val distance = searchDistance.toInt()
-            val canDistance = min(lastScroll, distance)
-            toolbar.y -= canDistance
-            search.y -= canDistance
-            rvCatalog.y -= canDistance
-        }
+        rvCatalog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                Log.d("TAG", "onScrolled: $dy")
+            }
+        })
     }
 }
