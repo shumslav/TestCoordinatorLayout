@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
         if (stories.translationY != 0f) {
             val distance = abs(stories.translationY.toInt())
             val canDistance = min(lastScroll, distance)
-            stories.translationY += canDistance
-            search.translationY += canDistance
+//            stories.translationY += canDistance
+//            search.translationY += canDistance
 //            rvCatalog.translationY += canDistance
             lastScroll -= canDistance
         }
@@ -74,20 +74,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun onScrollDown(dy: Int) = with(binding) {
         var lastScroll = dy
-        var isWasStoriesScrolled = true
+        var isWasStoriesScrolled: Boolean
         if (stories.y != toolbar.y) {
             val distance = (stories.y - toolbar.y).toInt()
             val canDistance = min(lastScroll, distance)
             stories.translationY -= canDistance
             search.translationY -= canDistance
-//            rvCatalog.translationY -= canDistance
+            rvCatalog.translationY -= canDistance
             lastScroll -= canDistance
+            isWasStoriesScrolled = canDistance == distance
+        } else {
+            isWasStoriesScrolled = true
         }
-        if (search.y != 0f) {
-            val distance = search.y.toInt()
+        val searchDistance = search.y + search.height
+        if (searchDistance != 0f && isWasStoriesScrolled) {
+            val distance = searchDistance.toInt()
             val canDistance = min(lastScroll, distance)
-            toolbar.translationY -= canDistance
-            search.translationY -= canDistance
+            toolbar.y -= canDistance
+            search.y -= canDistance
+            rvCatalog.y -= canDistance
         }
     }
 }
