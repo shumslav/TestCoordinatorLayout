@@ -14,9 +14,10 @@
         android:layout_height="wrap_content">
 
         <com.example.testcoordinatorlayout.CustomViewGroup
+            android:id="@+id/custom_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories"

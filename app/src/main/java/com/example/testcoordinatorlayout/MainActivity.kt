@@ -56,10 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() = with(binding) {
-        rvCatalog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                Log.d("TAG", "onScrolled: $dy")
-            }
-        })
+        customViewGroup.setupRecycler(rvCatalog)
     }
 }
