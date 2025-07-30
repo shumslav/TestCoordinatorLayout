@@ -20,46 +20,42 @@ class CustomViewGroup @JvmOverloads constructor(
 
     private val binding = CustomViewGroupBinding.inflate(LayoutInflater.from(context), this)
 
-    private var recyclerScroll: Int = 0
-
-//    override fun setLayoutParams(params: ViewGroup.LayoutParams?) {
-//        val newParams = (params as? AppBarLayout.LayoutParams)?.apply {
-//            minimumHeight = 100.toPx()
-//        } ?: params
-//        super.setLayoutParams(newParams)
-//    }
+    private var heightToolbar: Int = 0
+        set(value) {
+            field = value
+            setupMinimumHeight()
+        }
+    private var heightSearch: Int = 0
+        set(value) {
+            field = value
+            setupMinimumHeight()
+        }
 
     init {
-        minimumHeight = 100.toPx()
+        setupListeners()
     }
 
-    private var listener = object: RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            recyclerScroll += dy
-            Log.d("CustomViewGroup", "onScrolled: $recyclerScroll")
+    private fun setupListeners() = with(binding) {
+        toolbar.addOnLayoutChangeListener { view, i, i2, i3, i4, i5, i6, i7, i8 ->
+            heightToolbar = view.height
         }
+
+        search.addOnLayoutChangeListener { view, i, i2, i3, i4, i5, i6, i7, i8 ->
+            heightSearch = view.height
+        }
+    }
+
+    private fun setupMinimumHeight() {
+        minimumHeight = heightToolbar + heightSearch
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) = with(binding) {
         Log.d("CustomViewGroup", "onOffsetChanged: $verticalOffset totalScrollRange = ${appBarLayout.totalScrollRange}")
         toolbar.translationY = min(-verticalOffset.toFloat(), binding.stories.height.toFloat())
-//        binding.search.translationY = if (recyclerScroll > 0) {
-//            max(0f, -verticalOffset.toFloat())
-//        }
-//        else {
-//
-//        }
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         (parent as? AppBarLayout)?.addOnOffsetChangedListener(this)
     }
-
-    fun setupRecycler(recyclerView: RecyclerView) {
-        recyclerView.addOnScrollListener(listener)
-    }
-
-    fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 }

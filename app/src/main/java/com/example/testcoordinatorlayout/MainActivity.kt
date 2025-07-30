@@ -47,15 +47,5 @@ class MainActivity : AppCompatActivity() {
 
         categoriesAdapter.submitList((0..100).toList())
         adapter.submitList((0..100).toList())
-
-        setupRecyclerView()
-
-//        binding.main.setOnTouchListener { view, event ->
-//            binding.rvCatalog.onTouchEvent(event)
-//        }
-    }
-
-    private fun setupRecyclerView() = with(binding) {
-        customViewGroup.setupRecycler(rvCatalog)
     }
 }
